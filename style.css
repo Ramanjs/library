@@ -130,20 +130,24 @@ input[type="submit"]:hover {
     border-style: solid;
     border-color: #3ABCFF;
     border-radius: 6px;
-    font-weight: 400;
     font-family: 'Montserrat';
     text-align: center;
     position: relative;
 }
 
+.book:hover {
+    transform: scale(1.01);
+}
+
 .book-name {
     font-family: 'Antic Slab';
     font-size: 24px;
+    font-weight: 600;
 }
 
 .book-author {
     font-size: 20px;
-    font-family: 300;
+    font-weight: 400;
 }
 
 .delete-button {
@@ -165,6 +169,7 @@ input[type="submit"]:hover {
     bottom: 0;
     right: 5px;
     margin: 0;
+    font-weight: 200;
 }
 
 .book-read {
@@ -173,4 +178,6 @@ input[type="submit"]:hover {
     left: 5px;
     cursor: pointer;
     color: black;
+    font-weight: 200;
+    color: red;
 }
