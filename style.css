@@ -126,11 +126,11 @@ input[type="submit"]:hover {
     justify-content: center;
     align-items: center;
     margin: 0 20px;
-    padding: 20px;
+    padding: 10px;
     border-style: solid;
     border-color: #3ABCFF;
     border-radius: 6px;
-    font-weight: 200;
+    font-weight: 400;
     font-family: 'Montserrat';
     text-align: center;
     position: relative;
@@ -143,14 +143,34 @@ input[type="submit"]:hover {
 
 .book-author {
     font-size: 20px;
+    font-family: 300;
 }
 
-#delete-button {
+.delete-button {
     position: absolute;
     top: 0;
     right: 0;
-    color: red;
+    color: black;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.delete-button:hover {
+    color: red;
+}
+
+.book-pages {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    margin: 0;
+}
+
+.book-read {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    cursor: pointer;
+    color: black;
 }

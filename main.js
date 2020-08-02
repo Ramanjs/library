@@ -3,35 +3,25 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function() {
-        let bookInfo = `${this.title} by ${this.author}, ${this.pages} pages.`;
-        return bookInfo;
-    }
-    this.readStatus = function() {
-        return this.read ? 'Read' : 'Not Read';
-    }
 }
 
 const library = [];
-
 const formElement = document.querySelector('form');
 const booksContainer = document.querySelector('#books-container');
 const addBookspan = document.querySelector('#open-modal');
 const modal = document.querySelector('#modal');
 const closespan = document.querySelector('.close');
-// const spans = Array.from(document.getElementsByTagName('span'));
 
 addBookspan.addEventListener('click', openForm);
 closespan.addEventListener('click', closeForm);
 formElement.addEventListener('submit', addNewBook);
-// spans.forEach(span => span.addEventListener('click', deleteBook));
 
 function addNewBook(e) {
     e.preventDefault();
     let name = document.querySelector('#name').value;
     let author = document.querySelector('#author').value;
     let pages = document.querySelector('#pages').value;
-    let read = document.querySelector('#read').checked;
+    let read = document.querySelector('#read').checked ? "read" : "not read";
     let newBook = new Book(name, author, pages, read);
     library.push(newBook);
     renderBook(newBook, library.length - 1);
@@ -50,20 +40,13 @@ function renderBook(book, index) {
     let bookNode = document.createElement('div');
     bookNode.classList.add('book');
     bookNode.setAttribute('data-index', index);
-    let nameNode = document.createElement('p');
-    let authorNode = document.createElement('p');
-    let pagesNode = document.createElement('p');
-    let readSpan = document.createElement('span');
-    let deleteSpan = document.createElement('span');
-    nameNode.innerText = book.title;
-    nameNode.classList.add('book-name');
-    authorNode.innerText = book.author;
-    authorNode.classList.add('book-author');
-    pagesNode.innerText = book.pages + " pages.";
-    readSpan.innerText = book.readStatus();
+    let nameNode = getElement(book, 'p', 'title', 'book-name');
+    let authorNode = getElement(book, 'p', 'author', 'book-author');
+    let pagesNode = getElement(book, 'p', 'pages', 'book-pages');
+    let readSpan = getElement(book, 'span', 'read', 'book-read');
+    let deleteSpan = getElement(book, 'span', '', 'delete-button');
     deleteSpan.innerHTML = '&times;';
-    deleteSpan.setAttribute('id', 'delete-button');
-    deleteSpan.addEventListener('click', deleteBook)
+    deleteSpan.addEventListener('click', deleteBook);
     readSpan.addEventListener('click', toggleReadStatus);
     bookNode.appendChild(deleteSpan);
     bookNode.appendChild(nameNode);
@@ -84,7 +67,7 @@ function toggleReadStatus() {
     let bookNode = this.parentNode;
     let index = parseInt(bookNode.dataset.index);
     let bookObject = library[index];
-    bookObject.read = bookObject.read ? false : true;
+    bookObject.read = bookObject.read === 'read' ? 'not read' : 'read';
     render();
 }
 
@@ -100,4 +83,15 @@ function openForm() {
 
 function closeForm() {
     modal.style.display = 'none';
+}
+
+function getElement(book, elem, property, className) {
+    let element = document.createElement(elem);
+    if (book.hasOwnProperty(property)) {
+        element.innerHTML = book[property];
+    }
+    if (className) {
+        element.classList.add(className);
+    }
+    return element;
 }
