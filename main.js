@@ -1,8 +1,8 @@
-function Book(title, author, pages, read) {
+function Book(title, author, pages, pagesRead) {
     this.title = title;
     this.author = author;
     this.pages = pages + ' pages';
-    this.read = read;
+    this.pagesRead = pagesRead;
 }
 
 const library = [];
@@ -21,8 +21,8 @@ function addNewBook(e) {
     let name = document.querySelector('#name').value;
     let author = document.querySelector('#author').value;
     let pages = document.querySelector('#pages').value;
-    let read = document.querySelector('#read').checked ? "read" : "not read";
-    let newBook = new Book(name, author, pages, read);
+    let pagesRead = document.querySelector('#pages-read').value;
+    let newBook = new Book(name, author, pages, pagesRead);
     library.push(newBook);
     renderBook(newBook, library.length - 1);
     formElement.reset();
@@ -43,16 +43,16 @@ function renderBook(book, index) {
     let nameNode = getElement(book, 'p', 'title', 'book-name');
     let authorNode = getElement(book, 'p', 'author', 'book-author');
     let pagesNode = getElement(book, 'p', 'pages', 'book-pages');
-    let readSpan = getElement(book, 'span', 'read', 'book-read');
+    let editSpan = getElement(book, 'span', 'read', 'book-read');
     let deleteSpan = getElement(book, 'span', '', 'delete-button');
     deleteSpan.innerHTML = '&times;';
     deleteSpan.addEventListener('click', deleteBook);
-    readSpan.addEventListener('click', toggleReadStatus);
+    editSpan.addEventListener('click', editBook);
     bookNode.appendChild(deleteSpan);
     bookNode.appendChild(nameNode);
     bookNode.appendChild(authorNode);
     bookNode.appendChild(pagesNode);
-    bookNode.appendChild(readSpan);
+    // bookNode.appendChild(readSpan);
     booksContainer.appendChild(bookNode);
 }
 
@@ -63,11 +63,12 @@ function deleteBook() {
     bookNode.parentNode.removeChild(bookNode);
 }
 
-function toggleReadStatus() {
+function editBook() {
     let bookNode = this.parentNode;
     let index = parseInt(bookNode.dataset.index);
     let bookObject = library[index];
     bookObject.read = bookObject.read === 'read' ? 'not read' : 'read';
+    openForm();
     render();
 }
 
@@ -95,3 +96,10 @@ function getElement(book, elem, property, className) {
     }
     return element;
 }
+
+const pages = document.querySelector('#pages');
+const pagesRead = document.querySelector('#pages-read');
+
+pages.addEventListener('change', () => {
+    pagesRead.max = pages.value;
+})
