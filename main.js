@@ -6,15 +6,23 @@ function Book(title, author, pages, pagesRead) {
 }
 
 const library = [];
-const formElement = document.querySelector('#new-book-form');
+const newBookForm = document.querySelector('#new-book-form');
 const booksContainer = document.querySelector('#books-container');
-const addBookspan = document.querySelector('#open-modal');
-const modal = document.querySelector('#new-book-modal');
-const closespan = document.querySelector('.close');
+const addBookButton = document.querySelector('#open-modal');
+const newBookModal = document.querySelector('#new-book-modal');
+const closespan = document.querySelector('#new-book-close');
 
-addBookspan.addEventListener('click', openForm);
-closespan.addEventListener('click', closeForm);
-formElement.addEventListener('submit', addNewBook);
+addBookButton.addEventListener('click', openNewBookForm);
+closespan.addEventListener('click', closeNewBookForm);
+newBookForm.addEventListener('submit', addNewBook);
+
+function openNewBookForm() {
+    newBookModal.style.display = 'block';
+}
+
+function closeNewBookForm() {
+    newBookModal.style.display = 'none';
+}
 
 function addNewBook(e) {
     e.preventDefault();
@@ -25,8 +33,8 @@ function addNewBook(e) {
     let newBook = new Book(name, author, pages, pagesRead);
     library.push(newBook);
     render();
-    formElement.reset();
-    closeForm();
+    newBookForm.reset();
+    closeNewBookForm();
 }
 
 function render() {
@@ -72,41 +80,6 @@ function renderBook(book, index) {
     booksContainer.appendChild(bookNode);
 }
 
-function deleteBook() {
-    let bookNode = this.parentNode;
-    let index = parseInt(bookNode.dataset.index);
-    library.splice(index, 1);
-    render();
-}
-
-const editBookForm = document.querySelector('#edit-book-form');
-const editFormModal = document.querySelector('#edit-book-modal');
-let bookIndex = 0;
-
-editBookForm.addEventListener('submit', saveEdit);
-
-function editBook() {
-    let bookNode = this.parentNode;
-    bookIndex = parseInt(bookNode.dataset.index);
-    let bookObject = library[bookIndex];
-    editFormModal.style.display = 'block';
-    editBookForm[0].max = bookObject.pages;
-}
-
-function deleteAllBooks() {
-    while (booksContainer.firstChild) {
-        booksContainer.removeChild(booksContainer.lastChild);
-    }
-}
-
-function openForm() {
-    modal.style.display = 'block';
-}
-
-function closeForm() {
-    modal.style.display = 'none';
-}
-
 function getElement(book, elem, property, className) {
     let element = document.createElement(elem);
     if (book.hasOwnProperty(property)) {
@@ -118,22 +91,59 @@ function getElement(book, elem, property, className) {
     return element;
 }
 
+function deleteAllBooks() {
+    while (booksContainer.firstChild) {
+        booksContainer.removeChild(booksContainer.lastChild);
+    }
+}
+
+function deleteBook() {
+    let bookNode = this.parentNode;
+    let index = parseInt(bookNode.dataset.index);
+    library.splice(index, 1);
+    render();
+}
+
+const editBookForm = document.querySelector('#edit-book-form');
+const editFormModal = document.querySelector('#edit-book-modal');
+const closeEditSpan = document.querySelector('#edit-book-close');
+let bookIndex = 0;
+
+editBookForm.addEventListener('submit', saveEdit);
+closeEditSpan.addEventListener('click', closeEditForm);
+
+function openEditForm() {
+    editFormModal.style.display = 'block';
+}
+
+function closeEditForm() {
+    editFormModal.style.display = 'none';
+}
+
+function editBook() {
+    let bookNode = this.parentNode;
+    bookIndex = parseInt(bookNode.dataset.index);
+    let bookObject = library[bookIndex];
+    openEditForm();
+    editBookForm[0].max = bookObject.pages;
+}
+
 const pages = document.querySelector('#pages');
 const pagesRead = document.querySelector('#pages-read');
 
 pages.addEventListener('change', () => {
     pagesRead.max = pages.value;
-})
-
-function roundOffToOneDecimal(number) {
-    return Math.round(number * 10) / 10;
-}
+});
 
 function saveEdit(event) {
     event.preventDefault();
     let pagesRead = editBookForm[0].value;
     library[bookIndex].pagesRead = pagesRead;
     editBookForm.reset();
-    editFormModal.style.display = 'none';
+    closeEditForm();
     render();
+}
+
+function roundOffToOneDecimal(number) {
+    return Math.round(number * 10) / 10;
 }

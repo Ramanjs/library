@@ -17,7 +17,7 @@
         </header>
         <div id="new-book-modal" class="modal">
             <form id="new-book-form" class="form">
-                <span class="close">&times;</span>
+                <span id="new-book-close" class="close">&times;</span>
                 <label for="name">Name</label>
                 <input type="text" id="name" class="form-element" maxlength="50" required>
                 <label for="author">Author</label>
@@ -34,6 +34,7 @@
                 <label for="range">Pages Read</label>
                 <input type="number" min="0" class="form-element" required>
                 <input type="submit">
+                <span id="edit-book-close" class="close">&times;</span>
             </form>
         </div>
         <div id="books-container"></div>
