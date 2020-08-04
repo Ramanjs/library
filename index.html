@@ -15,8 +15,8 @@
             <h1>Library</h1>
             <button id="open-modal">Add New Book</button>
         </header>
-        <div id="modal">
-            <form id="form">
+        <div id="new-book-modal" class="modal">
+            <form id="new-book-form" class="form">
                 <span class="close">&times;</span>
                 <label for="name">Name</label>
                 <input type="text" id="name" class="form-element" maxlength="50" required>
@@ -26,10 +26,13 @@
                 <input type="number" id="pages" min="0" max="9999999" class="form-element" required>
                 <label for="range">Pages Read</label>
                 <input type="number" id="pages-read" min="0" class="form-element" required>
-                <!-- <div class="range-wrap">
-                    <input type="range" id="range" class="range">
-                    <output class="bubble"></output>
-                </div>   -->
+                <input type="submit">
+            </form>
+        </div>
+        <div id="edit-book-modal" class="modal">
+            <form id="edit-book-form" class="form">
+                <label for="range">Pages Read</label>
+                <input type="number" min="0" class="form-element" required>
                 <input type="submit">
             </form>
         </div>
