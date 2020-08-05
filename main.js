@@ -106,6 +106,7 @@ function deleteBook() {
     let book = library[index];
     library.splice(index, 1);
     render();
+    
     //delete from localStorage
     localStorage.removeItem(book.title);
 }
@@ -148,6 +149,9 @@ function saveEdit(event) {
     editBookForm.reset();
     closeEditForm();
     render();
+
+    //save edit to local storage
+    localStorage.setItem(library[bookIndex].title, JSON.stringify(library[bookIndex]));
 }
 
 function roundOffToOneDecimal(number) {
