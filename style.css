@@ -7,15 +7,21 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 header {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
     color: #3ABCFF;
     border-bottom: 2px solid #3ABCFF;
+    background-color: #e1e2ff;
+    z-index: 1;
 }
 
 #open-modal {
@@ -24,6 +30,7 @@ header {
     font-family: inherit;
     border-color: #3ABCFF;
     border-radius: 4px;
+    margin: 0 20px;
     padding: 4px 6px;
     font-size: 1rem;
     cursor: pointer;
@@ -35,7 +42,7 @@ header {
 }
 
 h1 {
-    margin: 0;
+    margin: 0 20px;
 }
 
 .modal {
@@ -111,7 +118,7 @@ input[type="submit"]:hover {
 }
 
 #books-container {
-    margin-top: 40px;
+    margin-top: 80px;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -125,7 +132,7 @@ input[type="submit"]:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 20px;
+    margin: 10px 20px;
     padding: 10px;
     border-style: solid;
     border-color: #3ABCFF;
@@ -176,4 +183,20 @@ input[type="submit"]:hover {
     cursor: pointer;
     font-weight: 200;
     color: red;
+}
+
+@media (max-width: 580px) {
+
+    #books-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book {
+        width: 70vw;
+    }
+
+    .form {
+        width: 80vw;
+    }
 }
