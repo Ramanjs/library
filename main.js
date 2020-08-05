@@ -103,7 +103,8 @@ function deleteAllBooks() {
 function deleteBook() {
     let bookNode = this.parentNode;
     let index = parseInt(bookNode.dataset.index);
-    let book = library.splice(index, 1);
+    let book = library[index];
+    library.splice(index, 1);
     render();
     //delete from localStorage
     localStorage.removeItem(book.title);
@@ -174,9 +175,9 @@ function initiate() {
 }
 
 function getFromStorage() {
-    for (var i = 0; i < localStorage.length; i++){
-        library.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-    }
-    // let books = Object.values(localStorage);
-    // books.forEach(book => library.push(JSON.parse(book)));
+    // for (var i = 0; i < localStorage.length; i++){
+    //     library.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+    // }
+    let books = Object.values(localStorage);
+    books.forEach(book => library.push(JSON.parse(book)));
 }
