@@ -35,6 +35,9 @@ function addNewBook(e) {
     render();
     newBookForm.reset();
     closeNewBookForm();
+
+    //add book to localStorage
+    localStorage.setItem(newBook.title, JSON.stringify(newBook));
 }
 
 function render() {
@@ -100,8 +103,11 @@ function deleteAllBooks() {
 function deleteBook() {
     let bookNode = this.parentNode;
     let index = parseInt(bookNode.dataset.index);
+    let book = library[index];
     library.splice(index, 1);
     render();
+    //delete from localStorage
+    localStorage.removeItem(book.title);
 }
 
 const editBookForm = document.querySelector('#edit-book-form');
@@ -146,4 +152,32 @@ function saveEdit(event) {
 
 function roundOffToOneDecimal(number) {
     return Math.round(number * 10) / 10;
+}
+
+//local storage
+
+if (localStorage.length) {
+    getFromStorage();
+    render();
+} else {
+    initiate();
+}
+
+function initiate() {
+    let lotr = new Book('The Lord Of The Rings', 'J.R.R. Tolkein', '1178', '1024');
+    let atwn = new Book('And Then There Were None', 'Agatha Christie', '272', '119');
+    library.push(atwn);
+    library.push(lotr);
+    library.forEach((book) => {
+        localStorage.setItem(book.title, JSON.stringify(book));
+    });
+    render();
+}
+
+function getFromStorage() {
+    // for (var i = 0; i < localStorage.length; i++){
+    //     library.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+    // }
+    let books = Object.values(localStorage);
+    books.forEach(book => library.push(JSON.parse(book)));
 }
