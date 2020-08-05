@@ -186,17 +186,21 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 580px) {
-
+    
     #books-container {
         flex-direction: column;
         align-items: center;
     }
-
+    
     .book {
         width: 70vw;
     }
-
+    
     .form {
         width: 80vw;
+    }
+
+    #edit-book-form {
+        margin: 250px auto;
     }
 }
