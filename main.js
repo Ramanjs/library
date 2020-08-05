@@ -60,13 +60,17 @@ function renderBook(book, index) {
     pagesNode.innerHTML += ' pages';
     
     let editProgress = getElement(book, 'span', '', 'book-status');
+    let editIcon = document.createElement('i');
+    editIcon.classList.add('fa');
+    editIcon.classList.add('fa-edit');
     
     let deleteSpan = getElement(book, 'span', '', 'delete-button');
     
     let progress = (Number(book.pagesRead) / Number(book.pages)) * 100;
     progress = roundOffToOneDecimal(progress);
     
-    editProgress.innerText = `${progress}% Complete`;
+    editProgress.innerText = `${progress}% Complete `;
+    editProgress.appendChild(editIcon);
     editProgress.addEventListener('click', editBook);
     
     let gradient = `linear-gradient(90deg, #AEFBAE, #AEFBAE ${progress}%, white ${progress}%, white 100%)`;
@@ -133,6 +137,7 @@ function editBook() {
     let bookObject = library[bookIndex];
     openEditForm();
     editBookForm[0].max = bookObject.pages;
+    editBookForm[0].value = bookObject.pagesRead;
 }
 
 const pages = document.querySelector('#pages');

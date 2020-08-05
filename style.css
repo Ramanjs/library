@@ -127,7 +127,7 @@ input[type="submit"]:hover {
 
 .book {
     width: 200px;
-    height: 250px;
+    height: 275px;
     display: flex;
     flex-direction: column;
     justify-content: center;
