@@ -175,10 +175,8 @@ if (localStorage.length) {
 function initiate() {
     let lotr = new Book('The Lord Of The Rings', 'J.R.R. Tolkein', '1178', '1024');
     let atwn = new Book('And Then There Were None', 'Agatha Christie', '272', '119');
-    let raman = new Book('1,2 ka 4', 'Raman', '100', '69');
     library.push(atwn);
     library.push(lotr);
-    library.push(raman);
     library.forEach((book) => {
         localStorage.setItem(book.title, JSON.stringify(book));
     });
